@@ -1,29 +1,21 @@
 {
-  "uid": "CustomAPIWorkflowAction_app",
+  "uid": "CustomAPIWorkflowAction_private_app",
   "type": "app",
   "config": {
     "logo": "/app/app-logo.png",
     "description": "Send HTTP requests to any API endpoint directly from your workflows with flexible authentication options.",
-    "name": "Custom API Workflow Action",
-    "distribution": "marketplace",
+    "name": "Custom API Workflow Action (Internal)",
+    "distribution": "private",
     "auth": {
-      "type": "oauth",
-      "redirectUrls": [
-        "https://hub.kinghenry.au/oauth/callback/custom_api_workflow"
-      ],
-      "requiredScopes": ["oauth"],
+      "type": "static",
+      "requiredScopes": [],
       "optionalScopes": [],
       "conditionallyRequiredScopes": []
     },
     "permittedUrls": {
-      "fetch": ["https://hub.kinghenry.au"],
+      "fetch": ["https://fn-cetdigit-bc-hubspot.azurewebsites.net"],
       "iframe": [],
       "img": []
-    },
-    "support": {
-      "supportEmail": "support@kinghenry.au",
-      "documentationUrl": "https://kinghenry.au/apps/custom-api-workflow-action",
-      "supportUrl": "https://kinghenry.au/apps/custom-api-workflow-action"
     }
   }
 }

@@ -1,8 +1,8 @@
 {
-  "uid": "CustomAPIWorkflowAction_v2",
+  "uid": "CustomAPIWorkflowAction_private_v2",
   "type": "workflow-action",
   "config": {
-    "actionUrl": "https://hub.kinghenry.au/api/apps/custom-api-workflow/execute",
+    "actionUrl": "https://fn-cetdigit-bc-hubspot.azurewebsites.net/api/custom-api-workflow/execute",
     "isPublished": true,
     "supportedClients": [
       {

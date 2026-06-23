@@ -1,5 +1,5 @@
 {
-  "uid": "CustomAPIWorkflowAction_settings",
+  "uid": "CustomAPIWorkflowAction_private_settings",
   "type": "settings",
   "config": {
     "entrypoint": "/app/settings/SettingsPage.tsx"

@@ -52,8 +52,10 @@
           "options": [
             { "value": "none", "label": "None" },
             { "value": "bearer", "label": "Bearer Token" },
-            { "value": "api_key", "label": "API Key" },
-            { "value": "basic", "label": "Basic Auth" }
+            { "value": "api_key", "label": "API Key in Header" },
+            { "value": "api_key_query", "label": "API Key in Query Parameter" },
+            { "value": "basic", "label": "Basic Auth" },
+            { "value": "oauth2_client_credentials", "label": "OAuth 2.0 (Client Credentials)" }
           ]
         },
         "supportedValueTypes": ["STATIC_VALUE"],
@@ -148,6 +150,64 @@
         },
         "supportedValueTypes": ["STATIC_VALUE"],
         "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "api_key_query_name",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "oauth_token_url",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "oauth_client_id",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "oauth_client_secret",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "oauth_scope",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "oauth_client_auth_method",
+          "type": "enumeration",
+          "fieldType": "select",
+          "options": [
+            { "value": "body", "label": "Send client credentials in request body" },
+            { "value": "header", "label": "Send client credentials in Authorization header (Basic Auth)" }
+          ]
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
       }
     ],
     "inputFieldDependencies": [
@@ -166,8 +226,20 @@
       {
         "dependencyType": "CONDITIONAL_SINGLE_FIELD",
         "controllingFieldName": "auth_type",
+        "controllingFieldValue": "api_key_query",
+        "targetFieldNames": ["api_key_query_name", "api_key_value"]
+      },
+      {
+        "dependencyType": "CONDITIONAL_SINGLE_FIELD",
+        "controllingFieldName": "auth_type",
         "controllingFieldValue": "basic",
         "targetFieldNames": ["basic_auth_username", "basic_auth_password"]
+      },
+      {
+        "dependencyType": "CONDITIONAL_SINGLE_FIELD",
+        "controllingFieldName": "auth_type",
+        "controllingFieldValue": "oauth2_client_credentials",
+        "targetFieldNames": ["oauth_token_url", "oauth_client_id", "oauth_client_secret", "oauth_scope", "oauth_client_auth_method"]
       }
     ],
     "outputFields": [
@@ -226,7 +298,13 @@
           "custom_headers": "Custom Headers (JSON)",
           "request_body": "Request Body (JSON)",
           "timeout_seconds": "Timeout (seconds)",
-          "response_json_path": "Extract JSON Path (optional)"
+          "response_json_path": "Extract JSON Path (optional)",
+          "api_key_query_name": "API Key Query Parameter Name",
+          "oauth_token_url": "OAuth 2.0 Token URL",
+          "oauth_client_id": "OAuth 2.0 Client ID",
+          "oauth_client_secret": "OAuth 2.0 Client Secret",
+          "oauth_scope": "OAuth 2.0 Scope (optional)",
+          "oauth_client_auth_method": "OAuth 2.0 Client Authentication Method"
         },
         "inputFieldDescriptions": {
           "step_name": "Give this action a descriptive name (e.g., 'Send to Slack', 'Update CRM', 'Notify Admin'). This will be displayed on the workflow card.",
@@ -242,7 +320,13 @@
           "custom_headers": "Additional HTTP headers as JSON object. Example: {\"Content-Type\": \"application/json\"}",
           "request_body": "JSON body for POST/PUT/PATCH requests. Example: {\"key\": \"value\"}",
           "timeout_seconds": "Request timeout in seconds (default: 30, max: 60)",
-          "response_json_path": "Dot-notation path to extract from the JSON response. Example: data.score or result.items.0.name"
+          "response_json_path": "Dot-notation path to extract from the JSON response. Example: data.score or result.items.0.name",
+          "api_key_query_name": "The name of the query parameter for the API Key (e.g. 'code' or 'key')",
+          "oauth_token_url": "The identity provider token URL to get an access token",
+          "oauth_client_id": "The client ID used for requesting the access token",
+          "oauth_client_secret": "The client secret used for requesting the access token",
+          "oauth_scope": "Optional scope to request from the identity provider",
+          "oauth_client_auth_method": "How client credentials (client_id/client_secret) are sent to the token URL"
         },
         "outputFieldLabels": {
           "status_code": "Status Code",

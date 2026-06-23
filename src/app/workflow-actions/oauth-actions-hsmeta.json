@@ -1,0 +1,196 @@
+{
+  "uid": "CustomAPIWorkflowAction_private_oauth",
+  "type": "workflow-action",
+  "config": {
+    "actionUrl": "https://fn-cetdigit-bc-hubspot.azurewebsites.net/api/custom-api-workflow/execute",
+    "isPublished": true,
+    "supportedClients": [
+      {
+        "client": "WORKFLOWS"
+      }
+    ],
+    "inputFields": [
+      {
+        "typeDefinition": {
+          "name": "step_name",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": true
+      },
+      {
+        "typeDefinition": {
+          "name": "grant_type",
+          "type": "enumeration",
+          "fieldType": "select",
+          "options": [
+            { "value": "client_credentials", "label": "Client Credentials" },
+            { "value": "password", "label": "Password (Username/Password)" },
+            { "value": "refresh_token", "label": "Refresh Token" }
+          ]
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "client_auth_method",
+          "type": "enumeration",
+          "fieldType": "select",
+          "options": [
+            { "value": "body", "label": "Send client credentials in request body" },
+            { "value": "header", "label": "Send client credentials in Authorization header (Basic Auth)" }
+          ]
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "token_url",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": true
+      },
+      {
+        "typeDefinition": {
+          "name": "client_id",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": true
+      },
+      {
+        "typeDefinition": {
+          "name": "client_secret",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "scope",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "username",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "password",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "refresh_token",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      }
+    ],
+    "inputFieldDependencies": [
+      {
+        "dependencyType": "CONDITIONAL_SINGLE_FIELD",
+        "controllingFieldName": "grant_type",
+        "controllingFieldValue": "password",
+        "targetFieldNames": ["username", "password"]
+      },
+      {
+        "dependencyType": "CONDITIONAL_SINGLE_FIELD",
+        "controllingFieldName": "grant_type",
+        "controllingFieldValue": "refresh_token",
+        "targetFieldNames": ["refresh_token"]
+      }
+    ],
+    "outputFields": [
+      {
+        "typeDefinition": {
+          "name": "access_token",
+          "type": "string",
+          "fieldType": "textarea"
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "expires_in",
+          "type": "number",
+          "fieldType": "number"
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "success",
+          "type": "bool",
+          "fieldType": "booleancheckbox"
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "error_message",
+          "type": "string",
+          "fieldType": "textarea"
+        }
+      }
+    ],
+    "labels": {
+      "en": {
+        "actionName": "OAuth 2.0 Get Token",
+        "actionDescription": "Get an OAuth 2.0 access token using client credentials, password, or refresh token",
+        "actionCardContent": "OAuth: {{step_name}}",
+        "inputFieldLabels": {
+          "step_name": "Name this action",
+          "grant_type": "Grant Type",
+          "client_auth_method": "Client Authentication Method",
+          "token_url": "OAuth 2.0 Token URL",
+          "client_id": "Client ID",
+          "client_secret": "Client Secret (optional)",
+          "scope": "Scope (optional)",
+          "username": "Username",
+          "password": "Password",
+          "refresh_token": "Refresh Token"
+        },
+        "inputFieldDescriptions": {
+          "step_name": "A descriptive name for this authentication step.",
+          "grant_type": "The OAuth 2.0 grant flow to use",
+          "client_auth_method": "How client credentials (client_id/client_secret) are sent to the OAuth server",
+          "token_url": "The identity provider token URL (e.g., https://login.microsoftonline.com/tenant/oauth2/v2.0/token)",
+          "client_id": "OAuth 2.0 Client ID",
+          "client_secret": "OAuth 2.0 Client Secret",
+          "scope": "The space-separated scope or resource URL",
+          "username": "OAuth Username",
+          "password": "OAuth Password",
+          "refresh_token": "OAuth Refresh Token to exchange for an access token"
+        },
+        "outputFieldLabels": {
+          "access_token": "Access Token",
+          "expires_in": "Expires In (seconds)",
+          "success": "Success",
+          "error_message": "Error Message"
+        }
+      }
+    },
+    "objectTypes": []
+  }
+}

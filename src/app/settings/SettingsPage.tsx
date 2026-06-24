@@ -1,4 +1,4 @@
-import React from "react";
+
 import {
   Divider,
   Link,
@@ -9,10 +9,9 @@ import {
   Box,
 } from "@hubspot/ui-extensions";
 import { hubspot } from "@hubspot/ui-extensions";
+hubspot.extend<"settings">(() => <SettingsPage/>);
 
-hubspot.extend<"settings">(({ context }) => <SettingsPage context={context}/>);
-
-const SettingsPage = ({ context }) => {
+const SettingsPage = () => {
   return (
     <Flex direction="column" gap="medium">
       {/* Header */}
@@ -54,7 +53,7 @@ const SettingsPage = ({ context }) => {
         </Text>
         <Flex direction="column" gap="small">
           <Text>1. Create or edit a workflow</Text>
-          <Text>2. Add the "Custom API Call" action</Text>
+          <Text>{'2. Add the "Custom API Call" action'}</Text>
           <Text>3. Configure your API endpoint, method, and authentication</Text>
           <Text>4. Use the output fields (status_code, response_body, success, error_message) in subsequent actions</Text>
         </Flex>

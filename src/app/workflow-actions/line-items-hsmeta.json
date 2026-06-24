@@ -1,0 +1,91 @@
+{
+  "uid": "CustomAPIWorkflowAction_private_get_line_items",
+  "type": "workflow-action",
+  "config": {
+    "actionUrl": "https://fn-cetdigit-bc-hubspot.azurewebsites.net/api/custom-api-workflow/execute",
+    "isPublished": true,
+    "supportedClients": [
+      {
+        "client": "WORKFLOWS"
+      }
+    ],
+    "inputFields": [
+      {
+        "typeDefinition": {
+          "name": "step_name",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": true
+      },
+      {
+        "typeDefinition": {
+          "name": "associated_object_type",
+          "type": "enumeration",
+          "fieldType": "select",
+          "options": [
+            { "value": "deals", "label": "Deals" },
+            { "value": "quotes", "label": "Quotes" },
+            { "value": "invoices", "label": "Invoices" }
+          ]
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": true
+      }
+    ],
+    "inputFieldDependencies": [],
+    "outputFields": [
+      {
+        "typeDefinition": {
+          "name": "line_items_json",
+          "type": "string",
+          "fieldType": "textarea"
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "line_items_count",
+          "type": "number",
+          "fieldType": "number"
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "success",
+          "type": "bool",
+          "fieldType": "booleancheckbox"
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "error_message",
+          "type": "string",
+          "fieldType": "textarea"
+        }
+      }
+    ],
+    "labels": {
+      "en": {
+        "actionName": "Get Associated Line Items",
+        "actionDescription": "Fetch all line items associated with the Deal/Quote/Invoice and get their BC Item IDs",
+        "actionCardContent": "Get Line Items: {{step_name}}",
+        "inputFieldLabels": {
+          "step_name": "Name this action",
+          "associated_object_type": "Associated Object Type"
+        },
+        "inputFieldDescriptions": {
+          "step_name": "Name for the action card",
+          "associated_object_type": "Select the type of object the workflow is running on to fetch its associated Line Items"
+        },
+        "outputFieldLabels": {
+          "line_items_json": "Line Items JSON List",
+          "line_items_count": "Line Items Count",
+          "success": "Success",
+          "error_message": "Error Message"
+        }
+      }
+    },
+    "objectTypes": []
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "uid": "CustomAPIWorkflowAction_private_extract",
+  "type": "workflow-action",
+  "config": {
+    "actionUrl": "https://fn-cetdigit-bc-hubspot.azurewebsites.net/api/custom-api-workflow/execute",
+    "isPublished": true,
+    "supportedClients": [
+      {
+        "client": "WORKFLOWS"
+      }
+    ],
+    "inputFields": [
+      {
+        "typeDefinition": {
+          "name": "step_name",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": true
+      },
+      {
+        "typeDefinition": {
+          "name": "json_string",
+          "type": "string",
+          "fieldType": "textarea"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": true
+      },
+      {
+        "typeDefinition": {
+          "name": "json_path",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      }
+    ],
+    "inputFieldDependencies": [],
+    "outputFields": [
+      {
+        "typeDefinition": {
+          "name": "extracted_value",
+          "type": "string",
+          "fieldType": "textarea"
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "success",
+          "type": "bool",
+          "fieldType": "booleancheckbox"
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "error_message",
+          "type": "string",
+          "fieldType": "textarea"
+        }
+      }
+    ],
+    "labels": {
+      "en": {
+        "actionName": "Extract JSON Value",
+        "actionDescription": "Extract an ID or value from a JSON string using dot notation path",
+        "actionCardContent": "Extract Value: {{step_name}}",
+        "inputFieldLabels": {
+          "step_name": "Name this action",
+          "json_string": "JSON String",
+          "json_path": "JSON Path (optional, defaults to 'id')"
+        },
+        "inputFieldDescriptions": {
+          "step_name": "Name for the action card",
+          "json_string": "The JSON string to extract value from. Map the Response Body output from a previous API Call step.",
+          "json_path": "The dot notation path of the value to extract (e.g. 'id', 'value.0.id', or 'customer.name'). Defaults to 'id' if empty."
+        },
+        "outputFieldLabels": {
+          "extracted_value": "Extracted Value",
+          "success": "Success",
+          "error_message": "Error Message"
+        }
+      }
+    },
+    "objectTypes": []
+  }
+}
